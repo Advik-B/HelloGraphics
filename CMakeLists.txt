@@ -11,11 +11,23 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 
 
+# Add all the source files in the imgui directory
+file(GLOB_RECURSE IMGUI_SOURCES "imgui/*.cpp")
+# Add all the header files in the imgui directory
+file(GLOB_RECURSE IMGUI_HEADERS "imgui/*.h")
+# Add all the source files in the glad/src directory
+file(GLOB_RECURSE GLAD_SOURCES "glad/src/*.c")
+# Add all the header files in the glad/include directory
+file(GLOB_RECURSE GLAD_HEADERS "glad/include/*.h")
 
 add_executable(
     HelloImGUI
     main.cpp
     exit_codes.h
+    ${IMGUI_SOURCES}
+    ${IMGUI_HEADERS}
+    ${GLAD_SOURCES}
+    ${GLAD_HEADERS}
 )
 
 # Link the libraries
@@ -26,10 +38,10 @@ target_include_directories(HelloImGUI PRIVATE ${OPENGL_INCLUDE_DIR})
 target_include_directories(HelloImGUI PRIVATE ${GLFW_INCLUDE_DIRS})
 # Add ./glad/include to the include directories
 target_include_directories(HelloImGUI PRIVATE ./glad/include)
-target_include_directories(HelloImGUI PRIVATE ./imgui)
-target_include_directories(HelloImGUI PRIVATE ./imgui/backends)
 
-#
-## Add all .cpp files in ./imgui to the target
-#file(GLOB IMGUI_SOURCES ./imgui/*.cpp)
-#target_sources(HelloImGUI PRIVATE ${IMGUI_SOURCES})
+# Add all the source files in the src directory
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+target_sources(HelloImGUI PRIVATE ${SOURCES})
+
+# Add all the header files
+target_include_directories(HelloImGUI PRIVATE imgui)
