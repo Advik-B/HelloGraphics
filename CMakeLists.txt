@@ -10,6 +10,8 @@ set(glfw3_DIR "D:/vcpkg/installed/x64-windows/share/glfw3")
 find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 
+
+
 add_executable(
     HelloImGUI
     main.cpp
@@ -26,3 +28,8 @@ target_include_directories(HelloImGUI PRIVATE ${GLFW_INCLUDE_DIRS})
 target_include_directories(HelloImGUI PRIVATE ./glad/include)
 target_include_directories(HelloImGUI PRIVATE ./imgui)
 target_include_directories(HelloImGUI PRIVATE ./imgui/backends)
+
+#
+## Add all .cpp files in ./imgui to the target
+#file(GLOB IMGUI_SOURCES ./imgui/*.cpp)
+#target_sources(HelloImGUI PRIVATE ${IMGUI_SOURCES})
