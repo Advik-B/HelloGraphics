@@ -8,8 +8,13 @@ find_package(OpenGL REQUIRED)
 project(Minimal_GUI)
 add_executable(Minimal_GUI main.cpp)
 
+
 # Add ./include to the include directories
 target_include_directories(Minimal_GUI PRIVATE include)
+# Add glad/include to the include directories
+target_include_directories(Minimal_GUI PRIVATE glad/include)
+# Add glad/src to the include directories
+target_include_directories(Minimal_GUI PRIVATE glad/src)
 # Add GLFW and GLAD
 target_link_libraries(Minimal_GUI PRIVATE glfw glad)
 
