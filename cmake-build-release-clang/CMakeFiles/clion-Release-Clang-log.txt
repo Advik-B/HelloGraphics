@@ -1,5 +1,0 @@
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=C:/Programs/JetBrains/CLion/bin/ninja/win/x64/ninja.exe -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -G Ninja -S P:\Github\HelloImGUI -B P:\Github\HelloImGUI\cmake-build-release-clang
--- Found OpenGL: opengl32   
--- Configuring done (0.5s)
--- Generating done (0.0s)
--- Build files have been written to: P:/Github/HelloImGUI/cmake-build-release-clang

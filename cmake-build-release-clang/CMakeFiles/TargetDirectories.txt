@@ -1,3 +1,0 @@
-P:/Github/HelloImGUI/cmake-build-release-clang/CMakeFiles/Minimal_GUI.dir
-P:/Github/HelloImGUI/cmake-build-release-clang/CMakeFiles/edit_cache.dir
-P:/Github/HelloImGUI/cmake-build-release-clang/CMakeFiles/rebuild_cache.dir
