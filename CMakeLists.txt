@@ -49,7 +49,7 @@ target_include_directories(Minimal_GUI PUBLIC imgui/backends)
 target_include_directories(Minimal_GUI PUBLIC glad/include)
 
 
-# Disable console window on Windows
+# Disable console window for Release builds
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
 
     target_link_options(Minimal_GUI PRIVATE -mwindows)
