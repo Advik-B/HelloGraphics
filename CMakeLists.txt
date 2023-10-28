@@ -21,13 +21,9 @@ set(GLFW_USE_MIR OFF CACHE BOOL "" FORCE)
 set(GLFW_USE_EGL OFF CACHE BOOL "" FORCE)
 set(GLFW_USE_GLU OFF CACHE BOOL "" FORCE)
 
-
-set(imgui_DIR ${CMAKE_SOURCE_DIR}/imgui)
-
 add_subdirectory(glfw)
 
 project(Minimal_GUI)
-
 
 file(GLOB_RECURSE IMGUI_HEADERS imgui/*.h)
 file(GLOB_RECURSE IMGUI_SOURCES imgui/*.cpp)
@@ -51,7 +47,7 @@ target_include_directories(Minimal_GUI PUBLIC glad/include)
 
 # Disable console window for Release builds
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-
     target_link_options(Minimal_GUI PRIVATE -mwindows)
+    # target_link_options(Minimal_GUI PRIVATE -mwindows -static-libgcc -static-libstdc++)
 
 endif()
