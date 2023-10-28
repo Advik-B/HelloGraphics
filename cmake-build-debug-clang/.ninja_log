@@ -1,0 +1,5 @@
+# ninja log v5
+1	1719	7201709745662523	CMakeFiles/Minimal_GUI.dir/main.cpp.obj	a1bbccffbdfa63c3
+1721	2066	7201709749160814	Minimal_GUI.exe	dd598d95dceeba70
+4	390	7201774326781962	build.ninja	9b7af145395af9cc
+4	1179	7201774338787744	CMakeFiles/Minimal_GUI.dir/main.cpp.obj	9df39e5379eb366
