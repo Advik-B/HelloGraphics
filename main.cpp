@@ -1,5 +1,6 @@
 #include <glad/glad.c>
 #include <GLFW/glfw3.h>
+#include "imgui.h"
 
 #include <iostream>
 
@@ -57,7 +58,6 @@ int main()
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
-    std::cout << "Program ended successfully.";
     return 0;
 }
 
