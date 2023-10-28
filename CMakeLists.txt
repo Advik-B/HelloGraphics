@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # No need for Finding OpenGL, because (gladly), glad does that
-#find_package(OpenGL REQUIRED)
+find_package(OpenGL REQUIRED)
 
 
 # GLFW config
@@ -35,10 +35,14 @@ file(GLOB_RECURSE IMGUI_SOURCES imgui/*.cpp)
 # ImGUI config
 add_library(imgui STATIC ${IMGUI_HEADERS} ${IMGUI_SOURCES})
 
+file(GLOB_RECURSE GLAD_HEADERS glad/*.h)
+file(GLOB_RECURSE GLAD_SOURCES glad/*.c)
+# glad config
+add_library(glad STATIC ${GLAD_HEADERS} ${GLAD_SOURCES})
 
 add_executable(Minimal_GUI main.cpp)
 
-#target_link_libraries(Minimal_GUI glfw OpenGL::GL)
+target_link_libraries(Minimal_GUI glfw OpenGL::GL)
 
 target_include_directories(Minimal_GUI PUBLIC glfw/include)
 target_include_directories(Minimal_GUI PUBLIC imgui)
