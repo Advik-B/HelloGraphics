@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # No need for Finding OpenGL, because (gladly), glad does that
 find_package(OpenGL REQUIRED)
 
-
 # GLFW config
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
