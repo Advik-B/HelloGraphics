@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(OpenGL REQUIRED)
 
+# Dont want a seperate .exe.manifest file, instead embed it into the .exe
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /MANIFEST:NO")
+
 
 # GLFW config
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
@@ -25,29 +28,38 @@ add_subdirectory(glfw)
 
 project(Minimal_GUI)
 
-file(GLOB_RECURSE IMGUI_HEADERS imgui/*.h)
-file(GLOB_RECURSE IMGUI_SOURCES imgui/*.cpp)
-# ImGUI config
-add_library(imgui STATIC ${IMGUI_HEADERS} ${IMGUI_SOURCES})
-
+# glad config
 file(GLOB_RECURSE GLAD_HEADERS glad/*.h)
 file(GLOB_RECURSE GLAD_SOURCES glad/*.c)
-# glad config
 add_library(glad STATIC ${GLAD_HEADERS} ${GLAD_SOURCES})
+
+# ImGUI config
+file(GLOB_RECURSE IMGUI_HEADERS imgui/*.h)
+file(GLOB_RECURSE IMGUI_SOURCES imgui/*.cpp)
+add_library(imgui STATIC ${IMGUI_HEADERS} ${IMGUI_SOURCES})
 
 add_executable(Minimal_GUI main.cpp)
 
-target_link_libraries(Minimal_GUI glfw glad OpenGL::GL)
+target_link_libraries(Minimal_GUI glfw glad OpenGL::GL imgui)
 
 target_include_directories(Minimal_GUI PUBLIC glfw/include)
-target_include_directories(Minimal_GUI PUBLIC imgui)
-target_include_directories(Minimal_GUI PUBLIC imgui/backends)
 target_include_directories(Minimal_GUI PUBLIC glad/include)
+target_include_directories(Minimal_GUI PUBLIC imgui)
+
+# Copy GLFW/include/* to imgui/
+file(GLOB_RECURSE GLFW_HEADERS glfw/include/*.h)
+file(COPY ${GLFW_HEADERS} DESTINATION imgui)
+
 
 
 # Disable console window for Release builds
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_link_options(Minimal_GUI PRIVATE -mwindows)
-    # target_link_options(Minimal_GUI PRIVATE -mwindows -static-libgcc -static-libstdc++)
+    if (WIN32)
+        set_target_properties(Minimal_GUI PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+    else (
+            set_target_properties(Minimal_GUI PROPERTIES LINK_FLAGS "-mwindows")
+    )
+    endif ()
+
 
 endif()
