@@ -21,6 +21,18 @@ void consoleTest()
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+
+ImColor bgColor = ImColor(40, 44, 52);
+
+void renderGUI()
+{
+    ImGui::Begin("Hello, world!");
+    ImGui::Text("This is some useful text.");
+    // Add a color edit widget
+    ImGui::ColorEdit3("Background color", (float*)&bgColor, ImGuiColorEditFlags_NoInputs);
+    ImGui::End();
+}
+
 int main()
 {
     // glfw: initialize and configure
@@ -64,6 +76,7 @@ int main()
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
+    // Setup style
 
 
     // render loop
@@ -75,11 +88,12 @@ int main()
         processInput(window);
         // render
         // ------
+        glClearColor(bgColor.Value.x, bgColor.Value.y, bgColor.Value.z, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
+        renderGUI();
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
