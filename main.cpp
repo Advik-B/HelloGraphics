@@ -86,6 +86,7 @@ int main()
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
     io.ConfigFlags |= ImGuiWindowFlags_Popup;
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigFlags |= ImGuiWindowFlags_NoTitleBar;
 
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
