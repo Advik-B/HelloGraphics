@@ -1,14 +1,7 @@
 #include <cstdlib>
-#include <vector>
-
-#ifdef _DEBUG
-    #include <iostream>
-#endif
 
 // Global variables, used in renderUI()
 ImColor bgColor = ImColor(40, 44, 52);
-float multiplier = 0.5f;
-int sampleSize = 100;
 
 
 void handleImGuiInput(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -25,16 +18,19 @@ void preStartup(GLFWwindow* window) {
 
     // Never use imgui.ini file
     GetIO().IniFilename = nullptr;
-
+    // Set the style
+    ImGuiStyle& style = GetStyle();
+    style.WindowRounding = 1.0f;
+    style.Colors[ImGuiCol_WindowBg] = bgColor;
 
     // Set the size of the window
     SetNextWindowSize(ImVec2(400, 400), ImGuiCond_Always);
     // Set the position of the window
-    SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+    SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Always);
     // Set GLFW window size
     glfwSetWindowSize(window, 400, 400);
     // Set GLFW window position
-    glfwSetWindowPos(window, 0, 0);
+    glfwSetWindowPos(window, 100, 100);
 
     // Set the imgui callback for keyboard input
     glfwSetKeyCallback(window, handleImGuiInput);
@@ -42,30 +38,13 @@ void preStartup(GLFWwindow* window) {
 
 
 void renderUI() {
-    ImGui::SetNextWindowSize(ImVec2(697,324));
-    if (ImGui::Begin("window_name"))
-    {
+    using namespace ImGui;
+    SetNextWindowSize(ImVec2(400, 400), ImGuiCond_Always);
+//    SetNextWindowPos(GetMousePos(), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+    Begin("Hello, world!");
+    if (Button("Close Me"))
+        glfwSetWindowShouldClose(glfwGetCurrentContext(), true);
 
-        ImGui::SetCursorPos(ImVec2(34,50.5));
-        ImGui::PushItemWidth(200);
-        static int i11 = 50;
-        ImGui::DragInt("##", &i11, 1);
-        ImGui::PopItemWidth();
-
-        ImGui::SetCursorPos(ImVec2(37,88.5));
-        ImGui::PushItemWidth(200);
-        static float f22 = 0.0f;
-        ImGui::SliderFloat("##", &f22, -10.0f, 10.0f, "%.4f", ImGuiSliderFlags_Logarithmic);
-        ImGui::PopItemWidth();
-
-        ImGui::SetCursorPos(ImVec2(38,137.875));
-        ImGui::PushItemWidth(200);
-        static float col33[4] = {0.4f, 0.7f, 0.0f, 0.5f};
-        ImGui::ColorEdit4("##", col33);
-
-        ImGui::PopItemWidth();
-
-    }
-    ImGui::End();
+    End();
 
 }
