@@ -1,5 +1,4 @@
 # Makes my commits look like I'm working hard
-import os
 import subprocess
 
 with open('temp.txt', 'r') as f:
