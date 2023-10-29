@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
+#include "gui.cpp"
 
 #include <iostream>
 
@@ -22,27 +22,12 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 
-ImColor bgColor = ImColor(40, 44, 52);
-
-void renderGUI()
-{
-    ImGui::Begin("Hello, world!");
-    ImGui::Text("This is some useful text.");
-    // Add a color edit widget thats linked with bgColor
-    ImGui::ColorEdit3(
-            "Change background color",
-            (float*)&bgColor,
-            ImGuiColorEditFlags_NoInputs
-            );
-    ImGui::End();
-}
-
 void ImRender()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    renderGUI();
+    renderUI();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
