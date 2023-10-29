@@ -1,6 +1,9 @@
 # Makes my commits look like I'm working hard
 import subprocess
 
+# Run git reset to unstage any files
+subprocess.run(['git', 'reset'], stdout=subprocess.PIPE, shell=True)
+
 # Run git status to see if there are any changes
 status_output = subprocess.run(
     ['git', 'status', '--porcelain'],
