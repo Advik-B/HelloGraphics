@@ -29,21 +29,13 @@ void ImRender()
     ImGui::NewFrame();
     renderUI();
     ImGui::Render();
+    ImGui::UpdatePlatformWindows();
+    ImGui::RenderPlatformWindowsDefault();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void configStyle() {
     ImGui::StyleColorsDark();
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.WindowRounding = 0.0f;
-    style.WindowBorderSize = 0.0f;
-    style.WindowPadding = ImVec2(0.0f, 0.0f);
-    style.FramePadding = ImVec2(0.0f, 0.0f);
-    style.ItemSpacing = ImVec2(0.0f, 0.0f);
-
-    style.Colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f); // Transparent background
-    style.Colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f); // Transparent border
-
 }
 
 int main()
@@ -82,15 +74,17 @@ int main()
 
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-//    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigFlags |= ImGuiWindowFlags_Popup;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 
-
+    // Hide the actual opengl window because we are using imgui windows
+    glfwHideWindow(window);
     // Setup style
-//    configStyle();
+    configStyle();
 
     // render loop
     // -----------
