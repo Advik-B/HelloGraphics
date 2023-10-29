@@ -38,6 +38,15 @@ void configStyle() {
     ImGui::StyleColorsDark();
 }
 
+void keyBoardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    // If escape is pressed, close the window
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
+}
+
 int main()
 {
     // glfw: initialize and configure
@@ -59,6 +68,7 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetKeyCallback(window, keyBoardCallback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -85,10 +95,10 @@ int main()
     glfwHideWindow(window);
     // Setup style
     configStyle();
-
+    preStartup(window);
     // render loop
     // -----------
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(glfwGetCurrentContext()))
     {
         // input
         // -----
