@@ -8,9 +8,12 @@ with open('temp.txt', 'r') as f:
 for line in lines:
     if line.startswith('#'):
         continue
-    else:
-        line = line.rstrip()
-        subprocess.run(['git', 'add', line], shell=True)
-        subprocess.run(['git', 'commit', '-m', 'Deleted: %s' % line.split('/')[-1], line], shell=True)
-        print('Deleted: %s' % line.split('/')[-1])
-        subprocess.run(['git', 'push', 'origin', 'master'], shell=True)
+    line = line.rstrip()
+    subprocess.run(['git', 'add', line], shell=True)
+    subprocess.run(
+        ['git', 'commit', '-m', f"Deleted: {line.split('/')[-1]}", line],
+        shell=True,
+    )
+    print(f"Deleted: {line.split('/')[-1]}")
+
+subprocess.run(['git', 'push', 'origin', 'master'], shell=True)
