@@ -29,7 +29,11 @@ void renderGUI()
     ImGui::Begin("Hello, world!");
     ImGui::Text("This is some useful text.");
     // Add a color edit widget thats linked with bgColor
-    ImGui::ColorEdit3("Background color", (float*)&bgColor, ImGuiColorEditFlags_NoInputs);
+    ImGui::ColorEdit3(
+            "Change background color",
+            (float*)&bgColor,
+            ImGuiColorEditFlags_NoInputs
+            );
     ImGui::End();
 }
 
