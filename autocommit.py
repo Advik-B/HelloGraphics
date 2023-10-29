@@ -1,18 +1,46 @@
 # Makes my commits look like I'm working hard
 import subprocess
 
-with open('temp.txt', 'r') as f:
-    lines = f.readlines()
+# Run git status to see if there are any changes
+status_output = subprocess.run(
+    ['git', 'status', '--porcelain'],
+    stdout=subprocess.PIPE,
+    shell=True,
+)
 
-for line in lines:
-    if line.startswith('#'):
-        continue
-    line = line.rstrip()
-    subprocess.run(['git', 'add', line], shell=True)
-    subprocess.run(
-        ['git', 'commit', '-m', f"Deleted: {line.split('/')[-1]}", line],
-        shell=True,
-    )
-    print(f"Deleted: {line.split('/')[-1]}")
+if status_output.stdout:
+    for line in status_output.stdout.splitlines():
+        if line.startswith(b'??'):
+            continue
 
-subprocess.run(['git', 'push', 'origin', 'master'], shell=True)
+        # Get the filename
+        filename = line[3:].decode('utf-8')
+        # Status of the file
+        status = line[:2].decode('utf-8')
+        # Add the file to the staging area
+        # subprocess.run(['git', 'add', filename])
+
+        status = status.strip()
+        # Convert the status to a human readable format
+
+        filestatus: str
+        if status == 'A':
+            filestatus = 'added'
+        elif status == 'D':
+            filestatus = 'deleted'
+        elif status in ['M', 'MM']:
+            filestatus = 'modified'
+        elif status == 'R':
+            filestatus = 'renamed'
+        elif status == 'C':
+            filestatus = 'copied'
+        elif status == 'U':
+            filestatus = 'updated but unmerged'
+        elif status == '??':
+            filestatus = 'untracked'
+        else:
+            filestatus = "?"
+        # Commit the file
+
+        subprocess.run(['git', 'commit', '-m', f'{filestatus}: {filename}'])
+        
