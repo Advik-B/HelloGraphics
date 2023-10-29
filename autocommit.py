@@ -41,6 +41,5 @@ if status_output.stdout:
         else:
             filestatus = "?"
         # Commit the file
-
+        subprocess.run(['git', 'add', filename])
         subprocess.run(['git', 'commit', '-m', f'{filestatus}: {filename}'])
-        
